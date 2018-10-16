@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{066D3C02-9738-4A5E-80D8-C104157A012C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ACBr.Net.CTe.DACTe.FastReport</RootNamespace>
+    <AssemblyName>ACBr.Net.CTe.DACTe.FastReport</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ACBr.Net.Core, Version=1.2.2.0, Culture=neutral, PublicKeyToken=d3bb9130f8b775a6, processorArchitecture=MSIL">
+      <HintPath>..\packages\ACBr.Net.Core.1.2.2\lib\net452\ACBr.Net.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ACBr.Net.CTe, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d3bb9130f8b775a6, processorArchitecture=MSIL">
+      <HintPath>..\packages\ACBr.Net.CTe.1.0.0-rc2\lib\net452\ACBr.Net.CTe.dll</HintPath>
+    </Reference>
+    <Reference Include="ACBr.Net.DFe.Core, Version=1.2.3.0, Culture=neutral, PublicKeyToken=d3bb9130f8b775a6, processorArchitecture=MSIL">
+      <HintPath>..\packages\ACBr.Net.DFe.Core.1.2.3\lib\net452\ACBr.Net.DFe.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DACTeFastReport.cs">
+      <SubType>ACBr.Net</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Schemas\cancCTeTiposBasico_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cancCTeTiposBasico_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consCad_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consCad_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consReciCTeTiposBasico_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consReciCTeTiposBasico_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consReciCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consReciCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consSitCTeTiposBasico_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consSitCTeTiposBasico_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consSitCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consSitCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consStatServCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consStatServCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consStatServTiposBasico_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consStatServTiposBasico_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteModalAereo_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteModalAereo_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteModalAquaviario_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteModalAquaviario_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteModalDutoviario_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteModalDutoviario_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteModalFerroviario_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteModalFerroviario_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteModalRodoviarioOS_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteModalRodoviario_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteModalRodoviario_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteMultiModal_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteMultiModal_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteOS_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteTiposBasico_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cteTiposBasico_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cte_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cte_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\distDFeInt_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\enviCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\enviCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\evCancCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\evCancCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\evCCeCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\evCCeCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\eventoCTeTiposBasico_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\eventoCTeTiposBasico_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\eventoCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\eventoCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\evEPECCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\evEPECCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\evGTV_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\evPrestDesacordo_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\evRegMultimodal_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\evRegMultimodal_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\inutCTeTiposBasico_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\inutCTeTiposBasico_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\inutCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\inutCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\leiauteConsultaCadastro_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\leiauteConsultaCadastro_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\procCTeOS_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\procCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\procCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\procEventoCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\procEventoCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\procInutCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\procInutCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retConsCad_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retConsCad_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retConsReciCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retConsReciCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retConsSitCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retConsSitCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retConsStatServCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retConsStatServCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retCTeOS_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retDistDFeInt_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retEnviCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retEnviCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retEventoCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retEventoCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retInutCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retInutCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\tiposBasico_v1.03.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\tiposDistDFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\tiposGeralCTe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\tiposGeralCTe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\xmldsig-core-schema_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
