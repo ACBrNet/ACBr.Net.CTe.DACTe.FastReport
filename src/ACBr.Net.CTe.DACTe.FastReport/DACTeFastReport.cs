@@ -29,20 +29,55 @@
 // <summary></summary>
 // ***********************************************************************
 
+using ACBr.Net.Core.Extensions;
 using ACBr.Net.CTe.Services;
+using ACBr.Net.DFe.Core.Common;
+using FastReport;
+using FastReport.Export.Html;
+using FastReport.Export.Pdf;
+using System;
+using System.IO;
 
 namespace ACBr.Net.CTe.DACTe.FastReport
 {
     public sealed class DACTeFastReport : DACTeBase
     {
+        #region Fields
+
+        private Report internalReport;
+
+        #endregion Fields
+
+        #region Construtores
+        public DACTeFastReport()
+        {
+            FilePath = string.Empty;
+            QuebrarLinhasObservacao = true;
+            ShowDesign = false;
+        }
+        #endregion
+
+        #region Propriedades
+
+        public string FilePath { get; set; }
+
+        public bool QuebrarLinhasObservacao { get; set; }
+
+        public bool ShowDesign { get; set; }        
+
+        #endregion Propriedades
+
         public override void Imprimir(CTeProc[] conhecimentos)
         {
-            throw new System.NotImplementedException();
+            PreparaReport(conhecimentos);            
+            Print();
         }
 
         public override void ImprimirPDF(CTeProc[] conhecimentos)
         {
-            throw new System.NotImplementedException();
+            Filtro = FiltroDFeReport.PDF;
+            PreparaReport(conhecimentos);
+            Print();
         }
 
         public override void ImprimirEvento(CTeProcEvento[] eventos)
@@ -65,6 +100,84 @@ namespace ACBr.Net.CTe.DACTe.FastReport
             throw new System.NotImplementedException();
         }
 
+        private void Print()
+        {
+            if (ShowDesign)
+            {
+                internalReport.Design();
+            }
+            else
+            {
+                internalReport.Prepare();
+
+                switch (Filtro)
+                {
+                    case FiltroDFeReport.Nenhum:
+                        if (MostrarPreview)
+                            internalReport.Show();
+                        else
+                            internalReport.Print();
+                        break;
+
+                    case FiltroDFeReport.PDF:
+                        var pdfExport = new PDFExport
+                        {
+                            EmbeddingFonts = true,
+                            ShowProgress = MostrarSetup,
+                            PdfCompliance = PDFExport.PdfStandard.PdfA_3b,
+                            OpenAfterExport = MostrarPreview
+                        };
+
+                        internalReport.Export(pdfExport, NomeArquivo);
+                        break;
+
+                    case FiltroDFeReport.HTML:
+                        var htmlExport = new HTMLExport
+                        {
+                            Format = HTMLExportFormat.MessageHTML,
+                            EmbedPictures = true,
+                            Preview = MostrarPreview,
+                            ShowProgress = MostrarSetup
+                        };
+
+                        internalReport.Export(htmlExport, NomeArquivo);
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            internalReport.Dispose();
+            internalReport = null;
+        }
+
+        private void PreparaReport(CTeProc[] conhecimentos)
+        {
+            internalReport = new Report();
+
+            if (string.IsNullOrEmpty(FilePath))
+            {
+                MemoryStream ms;
+                ms = new MemoryStream(Properties.Resources.DACTeRetrato);
+                internalReport.Load(ms);
+            }
+            else
+                internalReport.Load(FilePath);
+
+            internalReport.RegisterData(conhecimentos, "CTeProc");
+            internalReport.SetParameterValue("Logo", Logo.ToByteArray());
+            internalReport.SetParameterValue("QuebrarLinhasObservacao", QuebrarLinhasObservacao);
+            internalReport.SetParameterValue("SoftwareHouse", SoftwareHouse);
+            internalReport.SetParameterValue("Site", Site);
+
+            internalReport.PrintSettings.Copies = NumeroCopias;
+            internalReport.PrintSettings.Printer = Impressora;
+            internalReport.PrintSettings.ShowDialog = MostrarSetup;
+        }
+
+        #region Overrides
+
         protected override void OnInitialize()
         {
             //
@@ -74,5 +187,7 @@ namespace ACBr.Net.CTe.DACTe.FastReport
         {
             //
         }
+
+        #endregion Overrides
     }
 }
