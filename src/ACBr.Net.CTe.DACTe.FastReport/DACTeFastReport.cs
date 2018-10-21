@@ -36,7 +36,9 @@ using FastReport;
 using FastReport.Export.Html;
 using FastReport.Export.Pdf;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using ACBr.Net.CTe.DACTe.FastReport.Properties;
 
 namespace ACBr.Net.CTe.DACTe.FastReport
 {
@@ -48,56 +50,51 @@ namespace ACBr.Net.CTe.DACTe.FastReport
 
         #endregion Fields
 
-        #region Construtores
-        public DACTeFastReport()
-        {
-            FilePath = string.Empty;
-            QuebrarLinhasObservacao = true;
-            ShowDesign = false;
-        }
-        #endregion
+        #region Events
 
-        #region Propriedades
+        public event EventHandler<DACTeEventArgs> OnGetDACTe;
 
-        public string FilePath { get; set; }
+        #endregion Events
 
-        public bool QuebrarLinhasObservacao { get; set; }
+        #region Properties
 
-        public bool ShowDesign { get; set; }        
+        public bool ShowDesign { get; set; }
 
-        #endregion Propriedades
+        #endregion Properties
+
+        #region Methods
 
         public override void Imprimir(CTeProc[] conhecimentos)
         {
-            PreparaReport(conhecimentos);            
+            PreparaReport(conhecimentos, CTeLayout.DACTe);
             Print();
         }
 
         public override void ImprimirPDF(CTeProc[] conhecimentos)
         {
             Filtro = FiltroDFeReport.PDF;
-            PreparaReport(conhecimentos);
+            PreparaReport(conhecimentos, CTeLayout.DACTe);
             Print();
         }
 
         public override void ImprimirEvento(CTeProcEvento[] eventos)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override void ImprimirEventoPDF(CTeProcEvento[] eventos)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override void ImprimirInutilizacao(InutilizaoResposta inutilizao)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override void ImprimirInutilizacaoPDF(InutilizaoResposta inutilizao)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         private void Print()
@@ -152,18 +149,50 @@ namespace ACBr.Net.CTe.DACTe.FastReport
             internalReport = null;
         }
 
-        private void PreparaReport(CTeProc[] conhecimentos)
+        private void PreparaReport(IEnumerable<CTeProc> conhecimentos, CTeLayout tipo)
         {
             internalReport = new Report();
 
-            if (string.IsNullOrEmpty(FilePath))
+            var e = new DACTeEventArgs(tipo, LayoutImpressao);
+            OnGetDACTe.Raise(this, e);
+
+            if (e.FilePath.IsEmpty())
             {
                 MemoryStream ms;
-                ms = new MemoryStream(Properties.Resources.DACTeRetrato);
+                switch (tipo)
+                {
+                    case CTeLayout.DACTe:
+                        switch (LayoutImpressao)
+                        {
+                            case DACTeLayout.Retrato:
+                                ms = new MemoryStream(Resources.DACTeRetrato);
+                                break;
+
+                            case DACTeLayout.Paisagem:
+                                ms = new MemoryStream(Resources.DACTePaisagem);
+                                break;
+
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                        break;
+
+                    case CTeLayout.Evento:
+                        ms = new MemoryStream(Resources.DACTeEvento);
+                        break;
+
+                    case CTeLayout.Inutilizacao:
+                        ms = new MemoryStream(Resources.DACTeInutilizacao);
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(tipo), tipo, null);
+                }
+
                 internalReport.Load(ms);
             }
             else
-                internalReport.Load(FilePath);
+                internalReport.Load(e.FilePath);
 
             internalReport.RegisterData(conhecimentos, "CTeProc");
             internalReport.SetParameterValue("Logo", Logo.ToByteArray());
@@ -176,16 +205,15 @@ namespace ACBr.Net.CTe.DACTe.FastReport
             internalReport.PrintSettings.ShowDialog = MostrarSetup;
         }
 
+        #endregion Methods
+
         #region Overrides
 
         protected override void OnInitialize()
         {
-            //
-        }
+            base.OnInitialize();
 
-        protected override void OnDisposing()
-        {
-            //
+            ShowDesign = false;
         }
 
         #endregion Overrides

@@ -20,7 +20,6 @@ namespace ACBr.Net.CTe.DACTe.FastReport.Demo
 
         private void button2_Click(object sender, EventArgs e)
         {
-
             var dlg = new OpenFileDialog
             {
                 Title = "Carrgar imagem",
@@ -82,7 +81,6 @@ namespace ACBr.Net.CTe.DACTe.FastReport.Demo
                 var dacte = new DACTeFastReport()
                 {
                     Filtro = DFe.Core.Common.FiltroDFeReport.Nenhum,
-                    FilePath = txtArquivo.Text,
                     QuebrarLinhasObservacao = chbQuebrarLinhaObservacao.Checked,
                     MostrarPreview = (sender == button1),
                     ShowDesign = (sender == button5),
@@ -91,9 +89,13 @@ namespace ACBr.Net.CTe.DACTe.FastReport.Demo
                     Site = txtSite.Text,
                 };
 
-                dacte.Imprimir(new CTeProc[] { cte });
+                if (File.Exists(txtArquivo.Text))
+                {
+                    dacte.OnGetDACTe += (o, args) => args.FilePath = txtArquivo.Text;
+                }
+
+                dacte.Imprimir(new[] { cte });
             }
         }
-
     }
 }
